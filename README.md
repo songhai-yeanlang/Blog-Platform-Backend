@@ -1,1 +1,2 @@
-<!-- owner project by Songhai Yeanlang 25/05/2026-->
+# Ecommerce-Web-beginner-api
+for beginner student learning frondend fetch with real api
