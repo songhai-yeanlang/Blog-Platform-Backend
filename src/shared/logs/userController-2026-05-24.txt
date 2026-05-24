@@ -20,3 +20,13 @@ ReferenceError: data is not defined
     at register (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.controller.js:8:37)
     at D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.middleware.js:18:9
 ------------------------------------------------------------
+[2026-05-24 06:34:33]
+Error: Duplicate entry 'mrlangofficial168+1@gmail.com' for key 'users.email'
+    at Object.register (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.model.js:18:30)
+    at Object.register (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.service.js:22:33)
+    at async register (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.controller.js:8:19)
+------------------------------------------------------------
+[2026-05-24 13:37:38]
+ReferenceError: row is not defined
+    at register (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.controller.js:12:19)
+------------------------------------------------------------

@@ -2,9 +2,12 @@ const { logError } = require('./logError');
 
 const getErrorResponse = (error) => {
     if (error.code === 'ER_DUP_ENTRY') {
+        // Check the SQL message to see if the duplicate key was the email field
+        const isEmail = error.sqlMessage && error.sqlMessage.toLowerCase().includes('email');
+        
         return {
             statusCode: 409,
-            message: 'Email already exists'
+            message: isEmail ? 'Email already exists' : 'This record already exists'
         };
     }
 

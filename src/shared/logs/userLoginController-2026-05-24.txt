@@ -1,0 +1,15 @@
+[2026-05-24 14:11:25]
+Error: Invalid email or password
+    at Object.login (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.service.js:139:23)
+    at async login (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.controller.js:49:19)
+------------------------------------------------------------
+[2026-05-24 14:14:35]
+Error: Invalid email or password
+    at Object.login (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.service.js:139:23)
+    at async login (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.controller.js:49:19)
+------------------------------------------------------------
+[2026-05-24 14:21:56]
+Error: Invalid email or password
+    at Object.login (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.service.js:132:23)
+    at async login (D:\Web\6. Node js\MyLearning\Projects\ecommerce_web_api\src\modules\users\user.controller.js:49:19)
+------------------------------------------------------------

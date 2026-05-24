@@ -4,8 +4,13 @@ const path = require("path");
 const logError = async (controller, message_err) => {
     try {
         const now = new Date();
-        // Formats to 'YYYY-MM-DD HH:mm:ss' naturally
-        const timestamp = now.toISOString().replace('T', ' ').substring(0, 19);
+        
+        // Adjust for the local timezone offset
+        const tzOffset = now.getTimezoneOffset() * 60000;
+        const localDate = new Date(now.getTime() - tzOffset);
+        
+        // Formats local time to 'YYYY-MM-DD HH:mm:ss' naturally
+        const timestamp = localDate.toISOString().replace('T', ' ').substring(0, 19);
         const dateString = timestamp.split(' ')[0]; // Gets just 'YYYY-MM-DD'
         
         // Create daily log files to prevent infinite file size growth
