@@ -1,11 +1,3 @@
-/*
-DB_HOST = 'localhost'
-DB_USER = 'root'
-DB_PASSWORD = '12345678'
-DB_DATABASE = 'myportfolio'
-DB_PORT = 3306
-
-*/
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -14,6 +6,8 @@ CREATE TABLE users (
     password VARCHAR(255),
     token TEXT,
     phone VARCHAR(20),
+    bio TEXT,
+    avatar TEXT,
     address TEXT,
     role ENUM('admin', 'user'), 
     is_active TINYINT(1) DEFAULT 0,

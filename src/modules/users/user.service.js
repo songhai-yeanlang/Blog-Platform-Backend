@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const userMailer = require('./user.mailer');
 const userModel = require('./user.model');
 
+
 const VERIFICATION_EXPIRES_HOURS = 24;
 
 const createVerificationUrl = (verificationToken) => {
@@ -127,7 +128,7 @@ const resendVerification = async (email) => {
 const login = async (data) => {
     const { email, password } = data;
     const user = await userModel.findForLogin(email.toLowerCase());
-    
+
     if (!user) {
         const error = new Error('Invalid email or password');
         error.statusCode = 401;
@@ -178,7 +179,7 @@ const login = async (data) => {
 
 const getProfile = async (id) => {
     const user = await userModel.findById(id);
-    
+
     if (!user) {
         const error = new Error('User not found');
         error.statusCode = 404;
@@ -189,9 +190,9 @@ const getProfile = async (id) => {
 
 const changePassword = async (userId, data) => {
     const { oldPassword, newPassword } = data;
-    
+
     const user = await userModel.findPasswordById(userId);
-    
+
     if (!user) {
         const error = new Error('User not found');
         error.statusCode = 404;
@@ -209,11 +210,43 @@ const changePassword = async (userId, data) => {
     await userModel.updatePassword(userId, hashPassword);
 };
 
+const deleteProfile = async (userId) => {
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+        const error = new Error('User not found');
+        error.statusCode = 404;
+        throw error;
+    }
+
+    await userModel.deleteProfile(userId);
+};
+
+const updateProfile = async (userId, data) => {
+    let user = await userModel.findById(userId);
+    if (!user) {
+        const error = new Error('User not found');
+        error.statusCode = 404;
+        throw error;
+    }
+    let row = await userModel.updateProfile({
+        id: userId,
+        name: data.name !== undefined ? data.name : user.name,
+        phone: data.phone !== undefined ? data.phone : user.phone,
+        address: data.address !== undefined ? data.address : user.address,
+        bio: data.bio !== undefined ? data.bio : user.bio,
+    });
+    return row;
+
+}
+
 module.exports = {
     register,
     verifyEmail,
     resendVerification,
     login,
     getProfile,
-    changePassword
+    changePassword,
+    deleteProfile,
+    updateProfile
 };

@@ -72,7 +72,7 @@ const findForLogin = async (email) => {
 
 const findById = async (id) => {
     const sql = `
-        SELECT id, name, email, role, is_verified, is_active
+        SELECT *
         FROM users
         WHERE id = ?
         LIMIT 1
@@ -92,6 +92,18 @@ const updatePassword = async (id, newPasswordHash) => {
     await pool.query(sql, [newPasswordHash, id]);
 };
 
+const deleteProfile = async (id) => {
+    const sql = `DELETE FROM users WHERE id = ?`;
+    await pool.query(sql, [id]);
+};
+
+const updateProfile = async (data) => {
+    let sql = `UPDATE users SET name = ?, address = ?, phone = ?, bio = ? WHERE id = ?`;
+    let params = [data.name, data.address, data.phone, data.bio, data.id];
+    let [row] = await pool.query(sql, params);
+    return row;
+};
+
 module.exports = {
     register,
     findByVerificationToken,
@@ -101,5 +113,7 @@ module.exports = {
     findForLogin,
     findById,
     findPasswordById,
-    updatePassword
+    updatePassword,
+    deleteProfile,
+    updateProfile
 };

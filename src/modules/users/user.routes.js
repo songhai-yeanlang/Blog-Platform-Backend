@@ -11,5 +11,8 @@ router.post('/resend-verification', userMiddleware(resendVerificationSchema), us
 router.post('/login', userMiddleware(loginUserSchema), userController.login);
 router.get('/profile', isLogin, userController.getProfile);
 router.post('/change-pass', isLogin, userMiddleware(changePasswordSchema), userController.changePassword);
+router.delete('/delete-profile', isLogin, userController.deleteProfile);
+router.put('/update-profile', isLogin, userController.updateProfile); 
+
 
 module.exports = router;

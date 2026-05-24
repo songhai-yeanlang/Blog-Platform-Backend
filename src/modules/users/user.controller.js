@@ -16,7 +16,7 @@ const register = async (req, res) => {
             data: row
         });
     } catch (error) {
-        return await handleError(res, 'userRegisterController', error);
+        return await handleError(res, 'userController', error);
     }
 }
 
@@ -40,7 +40,7 @@ const resendVerification = async (req, res) => {
 
         return res.status(200).json({ success: true, message });
     } catch (error) {
-        return await handleError(res, 'userResendVerificationController', error);
+        return await handleError(res, 'userController', error);
     }
 };
 
@@ -53,7 +53,7 @@ const login = async (req, res) => {
             data: row
         });
     } catch (error) {
-        return await handleError(res, 'userLoginController', error);
+        return await handleError(res, 'userController', error);
     }
 }
 
@@ -66,7 +66,7 @@ const getProfile = async (req, res) => {
             data: userProfile
         });
     } catch (error) {
-        return await handleError(res, 'userProfileController', error);
+        return await handleError(res, 'userController', error);
     }
 };
 
@@ -78,7 +78,31 @@ const changePassword = async (req, res) => {
             message: "Password changed successfully"
         });
     } catch (error) {
-        return await handleError(res, 'userChangePasswordController', error);
+        return await handleError(res, 'userController', error);
+    }
+};
+
+const deleteProfile = async (req, res) => {
+    try {
+        await userService.deleteProfile(req.user.id);
+        return res.status(200).json({
+            success: true,
+            message: "Profile deleted successfully"
+        });
+    } catch (error) {
+        return await handleError(res, 'userController', error);
+    }
+};
+
+const updateProfile = async (req, res) => {
+    try {
+        await userService.updateProfile(req.user.id, req.body);
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+        });
+    } catch (error) {
+        return await handleError(res, 'userController', error);
     }
 };
 
@@ -88,5 +112,7 @@ module.exports = {
     resendVerification,
     login,
     getProfile,
-    changePassword
+    changePassword,
+    deleteProfile,
+    updateProfile
 };
