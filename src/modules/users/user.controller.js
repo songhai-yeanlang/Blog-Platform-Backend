@@ -1,4 +1,4 @@
-const { handleError } = require('../../shared/utils/handleError');
+const { handleError } = require('../../utils/handleError');
 const userService = require('./user.service');
 const userView = require('./user.view');
 
@@ -121,9 +121,32 @@ const forgotPassword = async (req, res) => {
     }
 };
 
+const verifyOtp = async (req, res) => {
+    try {
+        const { otp } = req.validated;
+        const result = await userService.verifyOtp(otp);
+
+        return res.status(200).json({
+            success: true,
+            message: "OTP verified successfully. You can now proceed to reset your password.",
+            data: result
+        });
+    } catch (error) {
+        return await handleError(res, 'userController', error);
+    }
+};
+
 const resetPassword = async (req, res) => {
     try {
-        await userService.resetPassword(req.validated);
+        if (!req.user || !req.user.isResetToken) {
+            const error = new Error('Unauthorized reset password session');
+            error.statusCode = 401;
+            throw error;
+        }
+
+        const { newPassword } = req.validated;
+        await userService.resetPassword(req.user.id, newPassword);
+
         return res.status(200).json({
             success: true,
             message: "Password reset successfully. You can now login with your new password."
@@ -143,5 +166,6 @@ module.exports = {
     deleteProfile,
     updateProfile,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    verifyOtp
 };

@@ -1,4 +1,4 @@
-const { writeErrorLog } = require('../../shared/utils/handleError');
+const { writeErrorLog } = require('../../utils/handleError');
 const jwt = require('jsonwebtoken');
 
 const userMiddleware = (schema) => async (req, res, next) => {

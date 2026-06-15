@@ -1,4 +1,4 @@
-const { getErrorResponse, writeErrorLog } = require('../../shared/utils/handleError');
+const { getErrorResponse, writeErrorLog } = require('../../utils/handleError');
 
 const wantsHtml = (req) => {
     return req.headers.accept && req.headers.accept.includes('text/html');

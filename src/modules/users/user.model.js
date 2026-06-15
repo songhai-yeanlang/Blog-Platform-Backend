@@ -1,4 +1,4 @@
-const pool = require('../../shared/configs/db.config');
+const pool = require('../../configs/db.config');
 
 const register = async (data) => {
     const sql = `
@@ -115,6 +115,17 @@ const findTokenById = async (id) => {
     return rows[0];
 };
 
+const findByOtp = async (otp) => {
+    const sql = `
+        SELECT id, name, email, token
+        FROM users
+        WHERE token LIKE ?
+        LIMIT 1
+    `;
+    const [rows] = await pool.query(sql, [`%"otp":"${otp}"%`]);
+    return rows[0];
+};
+
 module.exports = {
     register,
     findByVerificationToken,
@@ -128,5 +139,7 @@ module.exports = {
     deleteProfile,
     updateProfile,
     updateToken,
-    findTokenById
+    findTokenById,
+    findByOtp
 };
+

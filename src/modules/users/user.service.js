@@ -273,26 +273,18 @@ const forgotPassword = async (email) => {
     return { emailSent };
 };
 
-const resetPassword = async (data) => {
-    const { email, otp, newPassword } = data;
-    const user = await userModel.findByEmail(email.toLowerCase());
+const verifyOtp = async (otp) => {
+    const user = await userModel.findByOtp(otp);
 
-    if (!user) {
-        const error = new Error('Invalid email or OTP');
-        error.statusCode = 400;
-        throw error;
-    }
-
-    const tokenRow = await userModel.findTokenById(user.id);
-    if (!tokenRow || !tokenRow.token) {
-        const error = new Error('Invalid or expired OTP');
+    if (!user || !user.token) {
+        const error = new Error('Invalid OTP');
         error.statusCode = 400;
         throw error;
     }
 
     let tokenData;
     try {
-        tokenData = JSON.parse(tokenRow.token);
+        tokenData = JSON.parse(user.token);
     } catch (e) {
         const error = new Error('Invalid or expired OTP');
         error.statusCode = 400;
@@ -311,9 +303,30 @@ const resetPassword = async (data) => {
         throw error;
     }
 
+    const payload = {
+        id: user.id,
+        email: user.email,
+        isResetToken: true
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET || 'your_fallback_secret_key', {
+        expiresIn: '15m'
+    });
+
+    return { token };
+};
+
+const resetPassword = async (userId, newPassword) => {
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+        const error = new Error('User not found');
+        error.statusCode = 404;
+        throw error;
+    }
+
     const hashPassword = await bcrypt.hash(newPassword, 10);
-    await userModel.updatePassword(user.id, hashPassword);
-    await userModel.updateToken(user.id, null);
+    await userModel.updatePassword(userId, hashPassword);
+    await userModel.updateToken(userId, null);
 };
 
 module.exports = {
@@ -326,5 +339,6 @@ module.exports = {
     deleteProfile,
     updateProfile,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    verifyOtp
 };
