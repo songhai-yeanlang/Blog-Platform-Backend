@@ -7,10 +7,11 @@ app.use(express.json());
 app.use(cors());
 
 const authRoutes = require('./modules/auth/auth.routes');
-
+const userProfileRoutes = require('./modules/userProfile/userProfile.route');
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api', userProfileRoutes);
 
 
 app.use(async (err, req, res, next) => {
