@@ -8,7 +8,8 @@ const {
     forgotPasswordSchema,
     resetPasswordSchema,
     verifyOtpSchema,
-    changePasswordSchema
+    changePasswordSchema,
+    refreshTokenSchema
 } = require('./auth.validation');
 
 const router = express.Router();
@@ -22,6 +23,6 @@ router.post('/verify-otp', authMiddleware(verifyOtpSchema), authController.verif
 router.post('/reset-password', isLogin, authMiddleware(resetPasswordSchema), authController.resetPassword);
 router.post('/logout', isLogin, authController.logout);
 router.post('/change-password', isLogin, authMiddleware(changePasswordSchema), authController.changePassword);
-
+router.post('/refresh-token', authMiddleware(refreshTokenSchema), authController.refreshToken);
 
 module.exports = router;

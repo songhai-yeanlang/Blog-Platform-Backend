@@ -68,3 +68,9 @@ CREATE TABLE blog_post_tags (
     FOREIGN KEY (post_id) REFERENCES blog_post(id) ON DELETE CASCADE,
     FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
 );
+
+
+-- update table account 24/06/2026
+ALTER TABLE account
+ADD COLUMN refresh_token VARCHAR(500) AFTER token,
+ADD COLUMN refresh_token_expires DATETIME AFTER refresh_token;

@@ -131,6 +131,20 @@ const changePassword = async (req, res) => {
     }
 };
 
+const refreshToken = async (req, res) => {
+    try {
+        const { refreshToken } = req.validated;
+        const result = await authService.refreshToken(refreshToken);
+        return res.status(200).json({
+            success: true,
+            message: "Token refreshed successfully",
+            data: result
+        });
+    } catch (error) {
+        return await handleError(res, 'authController', error);
+    }
+};
+
 module.exports = {
     register,
     verifyEmail,
@@ -140,7 +154,8 @@ module.exports = {
     verifyOtp,
     resetPassword,
     logout,
-    changePassword
+    changePassword,
+    refreshToken
 };
 
 

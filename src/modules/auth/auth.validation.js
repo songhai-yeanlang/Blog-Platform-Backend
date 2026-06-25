@@ -83,6 +83,12 @@ const changePasswordSchema = joi.object({
         })
 });
 
+const refreshTokenSchema = joi.object({
+    refreshToken: joi.string().required().messages({
+        'any.required': 'refresh token is required'
+    })
+});
+
 module.exports = {
     registerUserSchema,
     resendVerificationSchema,
@@ -90,6 +96,7 @@ module.exports = {
     forgotPasswordSchema,
     resetPasswordSchema,
     verifyOtpSchema,
-    changePasswordSchema
+    changePasswordSchema,
+    refreshTokenSchema
 };
 

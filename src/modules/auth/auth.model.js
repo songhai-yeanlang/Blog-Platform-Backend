@@ -151,6 +151,27 @@ const updatePassword = async (id, newPasswordHash) => {
     await pool.query(sql, [newPasswordHash, id]);
 };
 
+const findByRefreshToken = async (refreshToken) => {
+    const sql = `
+        SELECT a.id, u.name, a.email, a.role, a.is_verified, a.is_active, a.refresh_token_expires
+        FROM account a
+        LEFT JOIN users u ON u.account_id = a.id
+        WHERE a.refresh_token = ?
+        LIMIT 1
+    `;
+    const [rows] = await pool.query(sql, [refreshToken]);
+    return rows[0];
+};
+
+const updateRefreshToken = async (id, refreshToken, refreshTokenExpires) => {
+    const sql = `
+        UPDATE account 
+        SET refresh_token = ?, refresh_token_expires = ? 
+        WHERE id = ?
+    `;
+    await pool.query(sql, [refreshToken, refreshTokenExpires, id]);
+};
+
 module.exports = {
     createAccount,
     createUser,
@@ -164,6 +185,8 @@ module.exports = {
     findByOtp,
     findTokenByEmail,
     updatePassword,
-    findPasswordById
+    findPasswordById,
+    findByRefreshToken,
+    updateRefreshToken
 };
 

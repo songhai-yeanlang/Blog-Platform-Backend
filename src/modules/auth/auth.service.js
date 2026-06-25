@@ -182,7 +182,11 @@ const login = async (data) => {
         expiresIn: process.env.JWT_EXPIRES_IN || '1d'
     });
 
+    const refreshToken = crypto.randomBytes(40).toString('hex');
+    const refreshTokenExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+
     await authModel.updateToken(user.id, token);
+    await authModel.updateRefreshToken(user.id, refreshToken, refreshTokenExpires);
 
     return {
         user: {
@@ -191,7 +195,8 @@ const login = async (data) => {
             email: user.email,
             role: user.role
         },
-        token
+        token,
+        refreshToken
     };
 };
 
@@ -267,6 +272,8 @@ const verifyOtp = async (email, otp) => {
         expiresIn: '15m'
     });
 
+    await authModel.updateToken(user.id, token);
+
     return { token };
 };
 
@@ -282,10 +289,12 @@ const resetPassword = async (userId, newPassword) => {
     const hashPassword = await bcrypt.hash(newPassword, 10);
     await authModel.updatePassword(userId, hashPassword);
     await authModel.updateToken(userId, null);
+    await authModel.updateRefreshToken(userId, null, null);
 };
 
 const logout = async (userId) => {
     await authModel.updateToken(userId, null);
+    await authModel.updateRefreshToken(userId, null, null);
 };
 
 const changePassword = async (userId, data) => {
@@ -309,6 +318,55 @@ const changePassword = async (userId, data) => {
     await authModel.updatePassword(userId, hashPassword);
 };
 
+const refreshToken = async (oldRefreshToken) => {
+    const user = await authModel.findByRefreshToken(oldRefreshToken);
+
+    if (!user) {
+        const error = new Error('Invalid refresh token');
+        error.statusCode = 401;
+        throw error;
+    }
+
+    if (new Date(user.refresh_token_expires).getTime() < Date.now()) {
+        const error = new Error('Refresh token has expired');
+        error.statusCode = 401;
+        throw error;
+    }
+
+    if (!user.is_verified) {
+        const error = new Error('Please verify your email');
+        error.statusCode = 403;
+        throw error;
+    }
+
+    if (!user.is_active) {
+        const error = new Error('Your account has been deactivated');
+        error.statusCode = 403;
+        throw error;
+    }
+
+    const payload = {
+        id: user.id,
+        email: user.email,
+        role: user.role
+    };
+
+    const newToken = jwt.sign(payload, process.env.JWT_SECRET || 'your_fallback_secret_key', {
+        expiresIn: process.env.JWT_EXPIRES_IN || '1d'
+    });
+
+    const newRefreshToken = crypto.randomBytes(40).toString('hex');
+    const newRefreshTokenExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+
+    await authModel.updateToken(user.id, newToken);
+    await authModel.updateRefreshToken(user.id, newRefreshToken, newRefreshTokenExpires);
+
+    return {
+        token: newToken,
+        refreshToken: newRefreshToken
+    };
+};
+
 module.exports = {
     register,
     verifyEmail,
@@ -318,6 +376,6 @@ module.exports = {
     verifyOtp,
     resetPassword,
     logout,
-    changePassword
+    changePassword,
+    refreshToken
 };
-
