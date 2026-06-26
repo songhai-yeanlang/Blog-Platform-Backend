@@ -79,11 +79,29 @@ const addBlogView = async (req, res) => {
     }
 };
 
+const toggleFavorite = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await blogPostService.toggleFavorite(req.user.id, id);
+        const message = data.favorited
+            ? 'Blog post added to favorites'
+            : 'Blog post removed from favorites';
+        return res.status(200).json({
+            success: true,
+            message,
+            data
+        });
+    } catch (error) {
+        return await handleError(res, 'blogPostController', error);
+    }
+};
+
 module.exports = {
     createBlog,
     updateBlog,
     getAllBlogs,
     getAllOwnerBlogs,
     deleteBlog,
-    addBlogView
+    addBlogView,
+    toggleFavorite
 };

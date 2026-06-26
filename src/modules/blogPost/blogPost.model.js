@@ -193,6 +193,30 @@ const addBlogView = async (postId, userId) => {
     return result;
 };
 
+const findFavorite = async (userId, postId) => {
+    const sql = `
+        SELECT id FROM favorites WHERE user_id = ? AND post_id = ? LIMIT 1
+    `;
+    const [rows] = await pool.query(sql, [userId, postId]);
+    return rows[0] || null;
+};
+
+const addFavorite = async (userId, postId) => {
+    const sql = `
+        INSERT INTO favorites (user_id, post_id) VALUES (?, ?)
+    `;
+    const [result] = await pool.query(sql, [userId, postId]);
+    return result;
+};
+
+const removeFavorite = async (userId, postId) => {
+    const sql = `
+        DELETE FROM favorites WHERE user_id = ? AND post_id = ?
+    `;
+    const [result] = await pool.query(sql, [userId, postId]);
+    return result;
+};
+
 module.exports = {
     getUserIdByAccountId,
     findCategoryById,
@@ -205,6 +229,9 @@ module.exports = {
     getAllBlogs,
     getAllBlogsByUserId,
     deleteBlogPost,
-    addBlogView
+    addBlogView,
+    findFavorite,
+    addFavorite,
+    removeFavorite
 };
 

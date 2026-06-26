@@ -12,4 +12,7 @@ router.get('/get-all-blogs', blogPostController.getAllBlogs);
 router.get('/get-owner-blogs', isLogin, blogPostController.getAllOwnerBlogs);
 router.delete('/delete-blog/:id', isLogin, blogPostController.deleteBlog);
 router.post('/add-blog-view/:id', isLogin, blogPostController.addBlogView);
+
+router.post('/toggleFavorite/:id', isLogin, blogPostController.toggleFavorite);
+
 module.exports = router;

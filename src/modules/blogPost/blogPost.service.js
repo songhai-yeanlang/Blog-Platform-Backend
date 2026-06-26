@@ -287,12 +287,38 @@ const addView = async (accountId, postId) => {
     await blogPostModel.addBlogView(postId, userId);
 };
 
+const toggleFavorite = async (accountId, postId) => {
+    const userId = await blogPostModel.getUserIdByAccountId(accountId);
+    if (!userId) {
+        const error = new Error('User profile not found');
+        error.statusCode = 404;
+        throw error;
+    }
+
+    const blogPost = await blogPostModel.findById(postId);
+    if (!blogPost) {
+        const error = new Error('Blog post not found');
+        error.statusCode = 404;
+        throw error;
+    }
+
+    const existing = await blogPostModel.findFavorite(userId, postId);
+    if (existing) {
+        await blogPostModel.removeFavorite(userId, postId);
+        return { favorited: false };
+    } else {
+        await blogPostModel.addFavorite(userId, postId);
+        return { favorited: true };
+    }
+};
+
 module.exports = {
     createBlog,
     updateBlog,
     getAllBlogs,
     getAllOwnerBlogs,
     deleteBlog,
-    addView
+    addView,
+    toggleFavorite
 };
 
