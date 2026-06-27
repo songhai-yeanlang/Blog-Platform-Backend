@@ -69,10 +69,12 @@ const deleteBlog = async (req, res) => {
 const addBlogView = async (req, res) => {
     try {
         const { id } = req.params;
-        await blogPostService.addView(req.user.id, id);
+        const result = await blogPostService.addView(req.user.id, id);
         return res.status(200).json({
             success: true,
-            message: "Blog view recorded successfully"
+            message: result.recorded
+                ? "Blog view recorded successfully"
+                : "You have already viewed this blog post"
         });
     } catch (error) {
         return await handleError(res, 'blogPostController', error);

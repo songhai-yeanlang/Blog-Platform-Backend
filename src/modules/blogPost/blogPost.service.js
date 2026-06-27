@@ -284,7 +284,13 @@ const addView = async (accountId, postId) => {
         throw error;
     }
 
-    await blogPostModel.addBlogView(postId, userId);
+    // Only record the view if this user has NOT viewed this post before
+    const alreadyViewed = await blogPostModel.hasUserViewed(postId, userId);
+    if (!alreadyViewed) {
+        await blogPostModel.addBlogView(postId, userId);
+        return { recorded: true };
+    }
+    return { recorded: false };
 };
 
 const toggleFavorite = async (accountId, postId) => {

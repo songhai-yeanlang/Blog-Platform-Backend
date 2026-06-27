@@ -193,6 +193,14 @@ const addBlogView = async (postId, userId) => {
     return result;
 };
 
+const hasUserViewed = async (postId, userId) => {
+    const sql = `
+        SELECT 1 FROM view_blog WHERE post_id = ? AND user_id = ? LIMIT 1
+    `;
+    const [rows] = await pool.query(sql, [postId, userId]);
+    return rows.length > 0;
+};
+
 const findFavorite = async (userId, postId) => {
     const sql = `
         SELECT id FROM favorites WHERE user_id = ? AND post_id = ? LIMIT 1
@@ -230,6 +238,7 @@ module.exports = {
     getAllBlogsByUserId,
     deleteBlogPost,
     addBlogView,
+    hasUserViewed,
     findFavorite,
     addFavorite,
     removeFavorite
