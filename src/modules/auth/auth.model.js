@@ -42,7 +42,7 @@ const findByEmail = async (email) => {
 
 const findForLogin = async (email) => {
     const sql = `
-        SELECT a.id, u.name, a.email, a.password, a.role, a.is_verified, a.is_active
+        SELECT a.id, u.id as user_id, u.name, a.email, a.password, a.role, a.is_verified, a.is_active
         FROM account a
         LEFT JOIN users u ON u.account_id = a.id
         WHERE a.email = ?
@@ -55,7 +55,7 @@ const findForLogin = async (email) => {
 
 const findById = async (id) => {
     const sql = `
-        SELECT a.id, u.name, a.email, a.role, a.is_verified, a.is_active, u.phone, u.bio, u.avatar
+        SELECT a.id, u.id as user_id, u.name, a.email, a.role, a.is_verified, a.is_active, u.phone, u.bio, u.avatar
         FROM account a
         LEFT JOIN users u ON u.account_id = a.id
         WHERE a.id = ?
@@ -68,7 +68,7 @@ const findById = async (id) => {
 
 const findByVerificationToken = async (verificationToken) => {
     const sql = `
-        SELECT a.id, u.name, a.email, a.is_verified, a.is_active, a.verification_expires
+        SELECT a.id, u.id as user_id, u.name, a.email, a.is_verified, a.is_active, a.verification_expires
         FROM account a
         LEFT JOIN users u ON u.account_id = a.id
         WHERE a.verification_token = ?
@@ -153,7 +153,7 @@ const updatePassword = async (id, newPasswordHash) => {
 
 const findByRefreshToken = async (refreshToken) => {
     const sql = `
-        SELECT a.id, u.name, a.email, a.role, a.is_verified, a.is_active, a.refresh_token_expires
+        SELECT a.id, u.id as user_id, u.name, a.email, a.role, a.is_verified, a.is_active, a.refresh_token_expires
         FROM account a
         LEFT JOIN users u ON u.account_id = a.id
         WHERE a.refresh_token = ?

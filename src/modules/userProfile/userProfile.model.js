@@ -2,7 +2,7 @@ const pool = require('../../configs/db.config');
 
 const findById = async (id) => {
     const sql = `
-        SELECT a.id, u.name, a.email, a.role, a.is_verified, a.is_active, u.phone, u.bio, u.avatar
+        SELECT a.id, u.id as user_id, u.name, a.email, a.role, a.is_verified, a.is_active, u.phone, u.bio, u.avatar
         FROM account a
         LEFT JOIN users u ON u.account_id = a.id
         WHERE a.id = ?
@@ -14,7 +14,7 @@ const findById = async (id) => {
 
 const getAllUsers = async () => {
     const sql = `
-        SELECT a.id, u.name, a.email, a.role, a.is_verified, a.is_active, u.phone, u.bio, u.avatar
+        SELECT a.id, u.id as user_id, u.name, a.email, a.role, a.is_verified, a.is_active, u.phone, u.bio, u.avatar
         FROM account a
         LEFT JOIN users u ON u.account_id = a.id
     `;

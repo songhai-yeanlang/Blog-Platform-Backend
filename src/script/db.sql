@@ -98,17 +98,17 @@ CREATE TABLE favorites (
 );
 
 -- add table notifications 28/06/2026
-CREATE TABLE notifications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    recipient_id INT NOT NULL,     
-    sender_id INT,                
-    post_id INT,                   
-    type VARCHAR(50) NOT NULL,     
-    message VARCHAR(255),          
-    is_read TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (post_id) REFERENCES blog_post(id) ON DELETE CASCADE
-);
+-- CREATE TABLE notifications (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     recipient_id INT NOT NULL,     
+--     sender_id INT,                
+--     post_id INT,                   
+--     type VARCHAR(50) NOT NULL,     
+--     message VARCHAR(255),          
+--     is_read TINYINT(1) DEFAULT 0,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE,
+--     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+--     FOREIGN KEY (post_id) REFERENCES blog_post(id) ON DELETE CASCADE
+-- );
