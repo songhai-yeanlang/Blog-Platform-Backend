@@ -100,9 +100,10 @@ const deleteComment = async (accountId, id) => {
         throw error;
     }
 
-    // Check ownership
-    if (comment.user_id !== userId) {
-        const error = new Error('Access denied. You can only delete your own comments.');
+    // Check ownership: comment author or blog post owner
+    const postOwnerId = await notificationModel.getPostOwnerId(comment.post_id);
+    if (comment.user_id !== userId && postOwnerId !== userId) {
+        const error = new Error('Access denied. You can only delete your own comments or comments on your post.');
         error.statusCode = 403;
         throw error;
     }
