@@ -96,19 +96,36 @@ CREATE TABLE favorites (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES blog_post(id) ON DELETE CASCADE
 );
+CREATE TABLE comments (
+  id int NOT NULL AUTO_INCREMENT,
+  post_id int NOT NULL,
+  user_id int NOT NULL,
+  content text NOT NULL,
+  created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY user_id (user_id),
+  KEY idx_post_comments (post_id),
+  CONSTRAINT comments_ibfk_1 FOREIGN KEY (post_id) REFERENCES blog_post (id) ON DELETE CASCADE,
+  CONSTRAINT comments_ibfk_2 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+)
 
-add table notifications 28/06/2026
-CREATE TABLE notifications (
+-- add table notifications 28/06/2026
+
+CREATE TABLE comment_notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    recipient_id INT NOT NULL,     
-    sender_id INT,                
-    post_id INT,                   
-    type VARCHAR(50) NOT NULL,     
-    message VARCHAR(255),          
-    is_read TINYINT(1) DEFAULT 0,
+    receiver_id INT NOT NULL,            
+    sender_id INT NOT NULL,             
+    post_id INT NOT NULL,                
+    comment_id INT NOT NULL,            
+    is_read TINYINT(1) DEFAULT 0,        
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE,
+    
+  
+    FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (post_id) REFERENCES blog_post(id) ON DELETE CASCADE
+    FOREIGN KEY (post_id) REFERENCES blog_post(id) ON DELETE CASCADE,
+    FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE,
+    
+    INDEX idx_receiver_unread (receiver_id, is_read)
 );
