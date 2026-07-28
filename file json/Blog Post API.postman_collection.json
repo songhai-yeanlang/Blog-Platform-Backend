@@ -22,7 +22,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"{{name}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+              "raw": "{\n  \"name\": \"Yeanlangr444\",\n  \"email\": \"langofficial19+221@gmail.com\",\n  \"password\": \"Khmerfreefire2025$\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
@@ -74,7 +74,6 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test('login response is successful', function () {",
                   "  pm.response.to.have.status(200);",
@@ -87,7 +86,21 @@
                   "if (response.data && response.data.refreshToken) {",
                   "  pm.environment.set('refreshToken', response.data.refreshToken);",
                   "}"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -101,7 +114,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+              "raw": "// {\n\n//   \"email\": \"langofficial19+1@gmail.com\",\n//   \"password\": \"Khmerfreefire2025$\"\n// }\n\n\n{\n  \"email\": \"langofficial19+121@gmail.com\",\n  \"password\": \"Updatepass2026$$\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/login",
@@ -130,7 +143,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"{{email}}\"\n}"
+              "raw": "{\n  \"email\": \"langofficial19@gmail.com\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/forgot-password",
@@ -216,7 +229,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"newPassword\": \"{{newPassword}}\",\n  \"confirmPassword\": \"{{newPassword}}\"\n}"
+              "raw": "{\n  \"newPassword\": \"BlogPost2026$\",\n  \"confirmPassword\": \"BlogPost2026$\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/reset-password",
@@ -365,7 +378,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{token}}",
+                  "value": "{{json_web_token_0cpa}}",
                   "type": "string"
                 }
               ]
@@ -446,7 +459,7 @@
                   "key": "avatar",
                   "type": "file",
                   "description": "Choose a jpg, jpeg, png, or webp image under 5 MB.",
-                  "value": null
+                  "src": "postman-cloud:///1f0be0eb-99c4-4050-86a3-c3c56d557c09"
                 }
               ]
             },
@@ -468,6 +481,16 @@
         {
           "name": "Get All Users",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJsYW5nb2ZmaWNpYWwxOSsxQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzgyMzYzNDY3LCJleHAiOjE3ODI0NDk4Njd9.KPXf_MTD3b8x30jZQUftmKk7XQAz-C7oeUIFfVwI_LA",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [],
             "url": {
@@ -481,6 +504,35 @@
               ]
             },
             "description": "Public list of users."
+          },
+          "response": []
+        },
+        {
+          "name": "Get User By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0bps}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/get-user/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "get-user",
+                "2"
+              ]
+            }
           },
           "response": []
         }
@@ -508,7 +560,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsYW5nb2ZmaWNpYWwxOUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3ODIzNjQ3OTcsImV4cCI6MTc4MjQ1MTE5N30.jdtZjzVh-1div-3JUKHjY4w_2XVXo72RDxK8gapsu8A",
+                      "value": "",
                       "type": "string"
                     }
                   ]
@@ -517,7 +569,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"name\":\"Web Decveloper\"\r\n}",
+                  "raw": "{\r\n    \"name\":\"General\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -644,7 +696,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsYW5nb2ZmaWNpYWwxOUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3ODIzNjQ3OTcsImV4cCI6MTc4MjQ1MTE5N30.jdtZjzVh-1div-3JUKHjY4w_2XVXo72RDxK8gapsu8A",
+                      "value": "{{auth_secret_0r4y}}",
                       "type": "string"
                     }
                   ]
@@ -653,7 +705,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"name\":\"Bootstrap\"\r\n}",
+                  "raw": "{\r\n    \"name\":\"Tailwind CSS\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -743,8 +795,146 @@
           ]
         },
         {
+          "name": "Comments",
+          "item": [
+            {
+              "name": "Create Comment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"post_id\": 26,\r\n    \"content\": \"This is a comment using request body parameters!\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/create-comment",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "create-comment"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Comment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"content\": \"This is my updated comment content!\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/update-comment/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "update-comment",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Comment By Id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/get-all-comment/{{BlogId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "get-all-comment",
+                    "{{BlogId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Comment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/delete-comment/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "delete-comment",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "Get All Blogs",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [],
             "url": {
@@ -831,7 +1021,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsYW5nb2ZmaWNpYWwxOUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3ODIzNjQ3OTcsImV4cCI6MTc4MjQ1MTE5N30.jdtZjzVh-1div-3JUKHjY4w_2XVXo72RDxK8gapsu8A",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjYsImVtYWlsIjoibGFuZ29mZmljaWFsMTkrMTIxQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg0Mjk3NTQ5LCJleHAiOjE3ODQzODM5NDl9.h4GqX2-7F38iH6IgQ2FxGujFae4PchIfglLDdqg79y0",
                   "type": "string"
                 }
               ]
@@ -843,7 +1033,7 @@
               "formdata": [
                 {
                   "key": "title",
-                  "value": "\tMy First Blog Post update",
+                  "value": "\tMy First Blog Post update xx",
                   "type": "text",
                   "uuid": "9f2f5108-7ee9-4942-adf6-01bd5c9e47db"
                 },
@@ -857,31 +1047,33 @@
                   "key": "category_id",
                   "value": "2",
                   "type": "text",
-                  "uuid": "3600dd3c-e7f3-4475-bce4-b60871f12768"
+                  "uuid": "3600dd3c-e7f3-4475-bce4-b60871f12768",
+                  "disabled": true
                 },
                 {
                   "key": "tags",
                   "value": "[2]",
                   "type": "text",
-                  "uuid": "1d318d15-3607-4c20-a530-bee487bf306c"
+                  "uuid": "1d318d15-3607-4c20-a530-bee487bf306c",
+                  "disabled": true
                 },
                 {
                   "key": "image",
                   "type": "file",
                   "uuid": "db243a1f-8b89-4321-be7d-9ab103a4a6fb",
-                  "src": "/C:/Users/YEANLANG/OneDrive/Pictures/Screenshots/Screenshot 2026-06-25 123630.png"
+                  "src": "/C:/Users/YEANLANG/OneDrive/Desktop/images.jfif"
                 }
               ]
             },
             "url": {
-              "raw": "{{baseUrl}}/api/update-blog/1",
+              "raw": "{{baseUrl}}/api/update-blog/26",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
                 "update-blog",
-                "1"
+                "26"
               ]
             }
           },
@@ -895,7 +1087,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsYW5nb2ZmaWNpYWwxOUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3ODIzNjQ3OTcsImV4cCI6MTc4MjQ1MTE5N30.jdtZjzVh-1div-3JUKHjY4w_2XVXo72RDxK8gapsu8A",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjYsImVtYWlsIjoibGFuZ29mZmljaWFsMTkrMTIxQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg0Mjk3NTQ5LCJleHAiOjE3ODQzODM5NDl9.h4GqX2-7F38iH6IgQ2FxGujFae4PchIfglLDdqg79y0",
                   "type": "string"
                 }
               ]
@@ -982,6 +1174,202 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get all notifications",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notifications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get only the unread",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notifications/unread-count",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "unread-count"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Single Notification As Read",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notifications/:id/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                ":id",
+                "read"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark all notifications as read",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notifications/mark-all-read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "mark-all-read"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Notification",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notifications/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_0cpa",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_01ti",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0r4y",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0bps",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_1a8m",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_19yg",
+      "secret": true
     }
   ]
 }
